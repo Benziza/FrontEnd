@@ -1,0 +1,48 @@
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+  integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+/>
+<app-nav-bar></app-nav-bar>
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+  integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+/>
+<div class="container">
+  <div class="row">
+    <div class="offset-md-2 col-lg-5 col-md-7 offset-lg-4 offset-md-3">
+      <div class="panel border bg-white">
+        <div class="panel-heading">
+          <h3 class="pt-3 font-weight-bold">Log out</h3>
+        </div>
+        <div
+          class="info"
+          style="display: flex; flex-direction: column; align-items: center"
+        >
+          <img src="../../assets/user.png" alt="" height="300px" />
+          <p style="text-align: center; font-size: x-large">
+            {{ user | uppercase }}
+          </p>
+        </div>
+        <div class="panel-body p-3">
+          <form>
+            <div class="btn btn-primary btn-block mt-3" (click)="logout()">
+              <!-- <a
+                href
+                style="color: #fff; border: none; background-color: #0d6efd"
+                (click)="logout()"
+                >Log Out</a
+              > -->
+              Log Out
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+<link
+  href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
+  rel="stylesheet"
+/>
+<app-nav-bar></app-nav-bar>
+<div class="center">
+  <video controls>
+    <source *ngIf="isReady" [src]="myUrl" type="video/mp4;" />
+  </video>
+</div>
+<script>
+  var vidElement = null;
+  function start() {
+    var camavailable =
+      navigator.mediaDevices && navigator.mediaDevice.getUserMedia;
+
+    if (camAvailable) {
+      vidElement = document.getElementById("vid");
+      navigator.mediaDevices.getUserMedia({ video: true }).then(function () {
+        vidElement.srcObject = stream;
+        vidElement.play();
+      });
+    }
+  }
+</script>

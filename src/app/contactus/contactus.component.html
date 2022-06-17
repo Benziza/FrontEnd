@@ -1,0 +1,85 @@
+<app-nav-bar></app-nav-bar>
+<div class="my-5">
+  <h1 class="text-center">Contact Us</h1>
+</div>
+
+<div class="container contact-div">
+  <div class="row">
+    <div class="col-md-6 col-10 mx-auto">
+      <form #editForm="ngForm">
+        <div class="form-group">
+          <label for="objet">Enter Object Email</label>
+          <input
+            type="text"
+            ngModel="{{ editMail?.objet }}"
+            
+            name="objet"
+            class="form-control"
+            id="objet"
+            placeholder="Enter Your Object"
+            #object="ngModel"
+            required
+          />
+        </div>
+        <div
+                class="alert alert-danger"
+                role="alert"
+                *ngIf="object.errors && clicked"
+              >
+                Entrez Objet Email !
+              </div>
+        <div class="form-group pt-3">
+          <label for="expediteur">Email address</label>
+          <input
+            type="email"
+            name="expediteur"
+            ngModel="{{ editMail?.expediteur }}"
+            class="form-control"
+            id="expediteur"
+            placeholder="name@example.com"
+            #exp="ngModel"
+            required
+          />
+        </div>
+        <div
+                class="alert alert-danger"
+                role="alert"
+                *ngIf="exp.errors && clicked"
+              >
+                Entrez Email !
+              </div>
+
+        <div class="form-group pt-3">
+          <label for="message"> Type your Message Here </label>
+          <textarea
+            name="message"
+            ngModel="{{ editMail?.message }}"
+            class="form-control"
+            id="message"
+            rows="3"
+            placeholder="Message"
+            #txt="ngModel"
+            required
+          ></textarea>
+        </div>
+        <div
+                class="alert alert-danger"
+                role="alert"
+                *ngIf="txt.errors && clicked"
+              >
+                Entrez Message !
+              </div>
+
+        <div class="col-12 pt-3">
+          <button
+            (click)="onSendMail(editForm.value)"
+            class="btn btn-outline-primary"
+            type="submit"
+          >
+            Send Email
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

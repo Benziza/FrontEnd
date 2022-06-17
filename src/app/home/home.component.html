@@ -1,0 +1,220 @@
+<app-nav-bar></app-nav-bar>
+<section id="header" class="d-flex align-items-center">
+  <div class="container-fluid nav_bg">
+    <div class="row">
+      <div class="col-10 mx-auto">
+        <div class="row">
+          <div
+            class="col-md-6 pt-5 pt-lg-0 order-2 order-lg-1 d-flex justify-content-center flex-column"
+          >
+            <h1>
+              Detect your objects with
+              <strong class="brand-name"> B.M.A </strong>
+            </h1>
+
+            <h2 class="my-3">
+              We're a team of talented developers that can help your objects
+              detection!
+            </h2>
+
+            <div class="mt-3">
+              <a routerLink="/login" class="btn-get-started">Get started</a>
+            </div>
+          </div>
+
+          <div class="col-lg-6 order-1 order-lg-2 header-img">
+            <img
+              src="../../assets/home.png"
+              class="img-fluid animated"
+              alt="HomeImg"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="articles" id="articles">
+  <h2 class="main-title">Playlist</h2>
+  <div class="container" id="main-container">
+    <div class="box" *ngFor="let piece of pieces">
+      <video style="width: 100%" controls>
+        <source [src]="piece.pathPiece" type="video/mp4;" />
+      </video>
+      <div class="content">
+        <h3>{{ piece.titlePiece }}</h3>
+        <p>
+          Number of objects in this piece is : {{ piece.numberOfObjecInPiece }}
+        </p>
+      </div>
+      <div class="info">
+        <a
+          (click)="onOpenModal(piece)"
+          data-toggle="tooltip"
+          style="cursor: pointer"
+          >Read More</a
+        >
+        <i class="fas fa-long-arrow-alt-right"></i>
+      </div>
+    </div>
+    <div class="void" *ngIf="isVoid">No piece to show</div>
+    <!-- Show Modal -->
+    <div
+      class="modal fade"
+      id="showPieceModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="employeeEditModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="showPieceModalLabel">
+              Show Piece : {{ showPiece?.titlePiece }}
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label for="titlePiece">Title Piece</label>
+                <input
+                  disabled
+                  type="text"
+                  ngModel="{{ showPiece?.titlePiece }}"
+                  name="titlePiece"
+                  class="form-control"
+                  id="titlePiece"
+                  aria-describedby="emailHelp"
+                  placeholder="Title Piece"
+                />
+              </div>
+              <input
+                disabled
+                type="hidden"
+                ngModel="{{ showPiece?.idPiece }}"
+                name="idPiece"
+                class="form-control"
+                id="idPiece"
+                placeholder="Id Piece"
+              />
+              <div class="form-group">
+                <label for="pathPiece">Path Piece</label>
+                <input
+                  disabled
+                  type="text"
+                  ngModel="{{ showPiece?.pathPiece }}"
+                  name="pathPiece"
+                  class="form-control"
+                  id="pathPiece"
+                  placeholder="Path Piece"
+                />
+              </div>
+              <div class="form-group">
+                <label for="numberOfObjecInPiece"
+                  >number Of Object In Piece</label
+                >
+                <input
+                  disabled
+                  type="number"
+                  ngModel="{{ showPiece?.numberOfObjecInPiece }}"
+                  name="numberOfObjecInPiece"
+                  class="form-control"
+                  id="numberOfObjecInPiece"
+                  placeholder="Job title"
+                />
+              </div>
+              <div>
+                <button
+                  style="
+                    padding: 3px;
+                    border: none;
+                    box-shadow: 16px -4px 5px -14px #eee;
+                    border-radius: 15px;
+                  "
+                  (click)="findObjectsByIdPiece(showPiece?.idPiece!)"
+                >
+                  Objects
+                </button>
+
+                <div *ngFor="let objet of objets">
+                  <label for="{{ objet?.objectName }}" style="color: red"
+                    >Name Object</label
+                  >
+                  <input
+                    disabled
+                    type="text"
+                    ngModel="{{ objet?.objectName }}"
+                    name="{{ objet?.objectName }}"
+                    class="form-control"
+                    id="{{ objet?.objectName }}"
+                    placeholder="object name"
+                  />
+
+                  <label for="{{ objet?.prediction }}">Prediction Object</label>
+                  <input
+                    disabled
+                    type="text"
+                    ngModel="{{ objet?.prediction }}"
+                    name="{{ objet?.prediction }}"
+                    class="form-control"
+                    id="{{ objet?.prediction }}"
+                    placeholder="object prediction"
+                  />
+                  <label for="{{ objet?.upOrDown }}">upOrDown Object</label>
+                  <input
+                    disabled
+                    type="text"
+                    ngModel="{{ objet?.upOrDown }}"
+                    name="{{ objet?.upOrDown }}"
+                    class="form-control"
+                    id="{{ objet?.upOrDown }}"
+                    placeholder="object upOrDown"
+                  />
+                  <label for="{{ objet?.surfaceObject }}">surface Object</label>
+                  <input
+                    disabled
+                    type="text"
+                    ngModel="{{ objet?.surfaceObject }}"
+                    name="{{ objet?.surfaceObject }}"
+                    class="form-control"
+                    id="{{ objet?.surfaceObject }}"
+                    placeholder="object surface"
+                  />
+                  <label for="{{ objet?.orderObject }}">Order Object</label>
+                  <input
+                    disabled
+                    type="text"
+                    ngModel="{{ objet?.orderObject }}"
+                    name="{{ objet?.orderObject }}"
+                    class="form-control"
+                    id="{{ objet?.orderObject }}"
+                    placeholder="object order"
+                  />
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  id=""
+                  data-dismiss="modal"
+                  class="btn btn-secondary"
+                >
+                  Close
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

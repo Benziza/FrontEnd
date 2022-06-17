@@ -1,0 +1,365 @@
+<link
+  href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
+  rel="stylesheet"
+/>
+<app-nav-bar></app-nav-bar>
+<div class="container" id="main-container">
+  <div class="row">
+    <div
+      *ngFor="let piece of pieces"
+      class="col-md-6 col-xl-3"
+      style="box-shadow: 0px 1px 3px; border-radius: 6px; padding: 10px"
+    >
+      <div class="card m-b-30">
+        <video controls>
+          <source [src]="piece.pathPiece" type="video/mp4;" />
+        </video>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            <i class="fa fa-envelope float-right"></i>Title :
+            <span>{{ piece?.titlePiece }}</span>
+          </li>
+        </ul>
+        Number Of Object :{{ piece?.numberOfObjecInPiece }}
+        <div class="card-body">
+          <div class="float-right btn-group btn-group-sm">
+            <a
+              (click)="onOpenModal(piece, 'show')"
+              style="color: white"
+              class="btn btn-info tooltips"
+              data-placement="top"
+              data-toggle="tooltip"
+              data-original-title="Edit"
+              ><i class="fa fa-info"></i>
+            </a>
+            <a
+              (click)="onOpenModal(piece, 'edit')"
+              class="btn btn-primary tooltips"
+              data-placement="top"
+              data-original-title="Edit"
+              ><i class="fa fa-pencil"></i>
+            </a>
+            <a
+              (click)="onOpenModal(piece, 'delete')"
+              class="btn btn-secondary tooltips"
+              data-placement="top"
+              data-original-title="Delete"
+              ><i class="fa fa-times"></i
+            ></a>
+            <a
+              *ngIf="piece.referenceOrNot == 'false'"
+              (click)="comparaison(piece.idPiece)"
+              style="color: white"
+              class="btn btn-info tooltips"
+              data-placement="top"
+              data-toggle="tooltip"
+              data-original-title="Edit"
+              ><i class="fa fa-info"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="void" *ngIf="isVoid">No piece to show</div>
+  </div>
+
+  <!-- Show Modal -->
+  <div
+    class="modal fade"
+    id="showPieceModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="employeeEditModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="showPieceModalLabel">
+            Show Piece : {{ showPiece?.titlePiece }}
+          </h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="titlePiece">Title Piece</label>
+              <input
+                disabled
+                type="text"
+                ngModel="{{ showPiece?.titlePiece }}"
+                name="titlePiece"
+                class="form-control"
+                id="titlePiece"
+                aria-describedby="emailHelp"
+                placeholder="Title Piece"
+              />
+            </div>
+            <input
+              disabled
+              type="hidden"
+              ngModel="{{ showPiece?.idPiece }}"
+              name="idPiece"
+              class="form-control"
+              id="idPiece"
+              placeholder="Id Piece"
+            />
+            <div class="form-group">
+              <label for="pathPiece">Path Piece</label>
+              <input
+                disabled
+                type="text"
+                ngModel="{{ showPiece?.pathPiece }}"
+                name="pathPiece"
+                class="form-control"
+                id="pathPiece"
+                placeholder="Path Piece"
+              />
+            </div>
+            <div class="form-group">
+              <label for="numberOfObjecInPiece"
+                >number Of Object In Piece</label
+              >
+              <input
+                disabled
+                type="number"
+                ngModel="{{ showPiece?.numberOfObjecInPiece }}"
+                name="numberOfObjecInPiece"
+                class="form-control"
+                id="numberOfObjecInPiece"
+                placeholder="Job title"
+              />
+            </div>
+            <div>
+              <button
+                style="
+                  padding: 3px;
+                  border: none;
+                  box-shadow: 16px -4px 5px -14px #eee;
+                  border-radius: 15px;
+                "
+                (click)="findObjectsByIdPiece(showPiece?.idPiece!)"
+              >
+                Objects
+              </button>
+
+              <div *ngFor="let objet of objets">
+                <label for="{{ objet?.objectName }}" style="color: red"
+                  >Name Object</label
+                >
+                <input
+                  disabled
+                  type="text"
+                  ngModel="{{ objet?.objectName }}"
+                  name="{{ objet?.objectName }}"
+                  class="form-control"
+                  id="{{ objet?.objectName }}"
+                  placeholder="object name"
+                />
+
+                <label for="{{ objet?.prediction }}">Prediction Object</label>
+                <input
+                  disabled
+                  type="text"
+                  ngModel="{{ objet?.prediction }}"
+                  name="{{ objet?.prediction }}"
+                  class="form-control"
+                  id="{{ objet?.prediction }}"
+                  placeholder="object prediction"
+                />
+                <label for="{{ objet?.upOrDown }}">upOrDown Object</label>
+                <input
+                  disabled
+                  type="text"
+                  ngModel="{{ objet?.upOrDown }}"
+                  name="{{ objet?.upOrDown }}"
+                  class="form-control"
+                  id="{{ objet?.upOrDown }}"
+                  placeholder="object upOrDown"
+                />
+                <label for="{{ objet?.surfaceObject }}">surface Object</label>
+                <input
+                  disabled
+                  type="text"
+                  ngModel="{{ objet?.surfaceObject }}"
+                  name="{{ objet?.surfaceObject }}"
+                  class="form-control"
+                  id="{{ objet?.surfaceObject }}"
+                  placeholder="object surface"
+                />
+                <label for="{{ objet?.orderObject }}">Order Object</label>
+                <input
+                  disabled
+                  type="text"
+                  ngModel="{{ objet?.orderObject }}"
+                  name="{{ objet?.orderObject }}"
+                  class="form-control"
+                  id="{{ objet?.orderObject }}"
+                  placeholder="object order"
+                />
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                id=""
+                data-dismiss="modal"
+                class="btn btn-secondary"
+              >
+                Close
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Modal -->
+  <div
+    class="modal fade"
+    id="updatePieceModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="employeeEditModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="updatePieceModalLabel">
+            Edit Piece : {{ editPiece?.titlePiece }}
+          </h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form #editForm="ngForm">
+            <div class="form-group">
+              <label for="titlePiece">Title Piece</label>
+              <input
+                type="text"
+                ngModel="{{ editPiece?.titlePiece }}"
+                name="titlePiece"
+                class="form-control"
+                id="titlePiece"
+                aria-describedby="emailHelp"
+                placeholder="Title Piece"
+              />
+            </div>
+            <input
+              type="hidden"
+              ngModel="{{ editPiece?.idPiece }}"
+              name="idPiece"
+              class="form-control"
+              id="idPiece"
+              placeholder="Id Piece"
+            />
+            <div class="form-group">
+              <label for="pathPiece">Path Piece</label>
+              <input
+                type="text"
+                ngModel="{{ editPiece?.pathPiece }}"
+                name="pathPiece"
+                class="form-control"
+                id="pathPiece"
+                placeholder="Path Piece"
+              />
+            </div>
+            <div class="form-group">
+              <label for="numberOfObjecInPiece"
+                >number Of Object In Piece</label
+              >
+              <input
+                disabled
+                type="number"
+                ngModel="{{ editPiece?.numberOfObjecInPiece }}"
+                name="numberOfObjecInPiece"
+                class="form-control"
+                id="numberOfObjecInPiece"
+                placeholder="Job title"
+              />
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                id=""
+                data-dismiss="modal"
+                class="btn btn-secondary"
+              >
+                Close
+              </button>
+              <button
+                (click)="onUpdatePiece(editForm.value)"
+                data-dismiss="modal"
+                class="btn btn-primary"
+              >
+                Save changes
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Delete Modal -->
+  <div
+    class="modal fade"
+    id="deletePieceModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="deleteModelLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteModelLabel">Delete Piece</h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>
+            Are you sure you want to delete Piece
+            {{ deletePiece?.titlePiece }}?
+          </p>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              No
+            </button>
+            <button
+              (click)="onDeletePiece(deletePiece.idPiece)"
+              class="btn btn-danger"
+              data-dismiss="modal"
+            >
+              Yes
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

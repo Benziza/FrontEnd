@@ -1,0 +1,84 @@
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+  integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+/>
+<app-nav-bar></app-nav-bar>
+<div class="container">
+  <div class="row">
+    <div class="offset-md-2 col-lg-5 col-md-7 offset-lg-4 offset-md-3">
+      <div class="panel border bg-white">
+        <div class="panel-heading">
+          <h3 class="pt-3 font-weight-bold">Login</h3>
+        </div>
+        <div class="panel-body p-3">
+          <form #f="ngForm">
+            <div class="form-group py-2">
+              <div class="input-field">
+                <span class="far fa-user p-2"></span>
+                <input
+                  type="text"
+                  id="username"
+                  [(ngModel)]="form.username"
+                  name="username"
+                  placeholder="Enter Your Name Or Email"
+                  required
+                  #username="ngModel"
+                />
+              </div>
+              <div
+                class="alert alert-danger"
+                role="alert"
+                *ngIf="username.errors && clicked"
+              >
+                Username is required!
+              </div>
+            </div>
+            <div class="form-group py-1 pb-2">
+              <div class="input-field">
+                <span class="fas fa-lock px-2"></span>
+                <input
+                  type="password"
+                  id="password"
+                  [(ngModel)]="form.password"
+                  placeholder="**********"
+                  name="password"
+                  minlength="6"
+                  #password="ngModel"
+                  required
+                />
+              </div>
+              <div
+                class="alert alert-danger"
+                role="alert"
+                *ngIf="password.errors && clicked"
+              >
+                <div *ngIf="password.errors.required">Password is required</div>
+                <div *ngIf="password.errors.minlength">
+                  Password must be at least 6 characters
+                </div>
+              </div>
+            </div>
+            <div
+              #el
+              type="submit"
+              class="btn btn-primary btn-block mt-3"
+              (click)="onSubmit()"
+            >
+              <div
+                class="alert alert-danger"
+                role="alert"
+                *ngIf="clicked && isLoginFailed"
+              >
+                Login failed
+              </div>
+              Log In
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
